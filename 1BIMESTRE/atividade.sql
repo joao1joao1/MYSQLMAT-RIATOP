@@ -1,3 +1,6 @@
+create database e_commerce;
+use e_commerce;
+
 create table cliente (
     id_cliente int not null auto_increment,
     nome varchar(30),
@@ -27,4 +30,14 @@ create table pedido (
   	data_estimada date,
   	primary key (id_pedido),
   	foreign key (id_produto) references produtos(id_produto)
+);
+
+create table items (
+	id_itens int not null auto_increment,
+    id_pedido int not null,
+    qtd int,
+    valor_unitario decimal(6,2),
+    valor_totall decimal(6,2),
+    primary key (id_itens),
+    foreign key (id_pedido) references pedido(id_pedido)
 );
