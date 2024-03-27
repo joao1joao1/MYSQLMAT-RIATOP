@@ -1,5 +1,5 @@
 create table cliente (
-	id_cliente int not null auto_increment,
+    id_cliente int not null auto_increment,
     nome varchar(30),
     endereco varchar(45),
     email varchar(50),
