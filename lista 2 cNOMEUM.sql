@@ -154,3 +154,34 @@ where nome like '%Modelo 82';
 select *
 from produtos
 where preco between 50 and 150;
+
+select nome, preco
+from produtos
+order by preco asc
+limit 5;
+
+select nome, quantidade_estoque
+from produtos
+where quantidade_estoque = 0;
+
+select nome, descricao
+from produtos
+where descricao is null or descricao = '';
+
+-- não consegui fazer a 8°
+
+select *
+from produtos
+where nome like '%SSD%';
+
+select nome, preco
+from produtos
+order by preco desc;
+
+select nome, quantidade_estoque
+from produtos
+where quantidade_estoque % 2 = 0;
+
+select nome, descricao
+from produtos
+where preco < 100 and quantidade_estoque > 0;
