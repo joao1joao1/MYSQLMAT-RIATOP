@@ -64,13 +64,20 @@ INSERT INTO Order_Items (order_item_id, order_id, product_id, quantity) VALUES
 (5, 3, 1, 2),
 (6, 4, 4, 1);
 
-select orders.order_id, 
-orders.order_date,
-customers.first_name, 
-customers.last_name, 
-customers.email
+select Orders.order_id, 
+Orders.order_date,
+Customers.first_name, 
+Customers.last_name, 
+Customers.email
 
-from orders
+from Orders
 
-inner join customers
-on orders.order_id = customers.customer_id;
+inner join Customers
+on Orders.order_id = Customers.customer_id;
+
+select Products.product_name,
+order_items.quantity
+from Products
+inner join Order_items on Products.product_id = Order_items.product_id
+inner join Orders on Order_items.order_id = Orders.order_id
+where Orders.customer_id = 2;
