@@ -81,3 +81,10 @@ from Products
 inner join Order_items on Products.product_id = Order_items.product_id
 inner join Orders on Order_items.order_id = Orders.order_id
 where Orders.customer_id = 2;
+
+select concat(Customers.first_name, ' ', Customers.last_name), sum(Products.price) 
+from Customers
+left join Orders on Customers.customer_id = Orders.customer_id
+left join Order_items on Orders.order_id = Order_items.order_id
+left join Products on Order_items.product_id = Products.product_id
+group by Customers.customer_id;
