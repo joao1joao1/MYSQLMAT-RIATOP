@@ -88,3 +88,8 @@ left join Orders on Customers.customer_id = Orders.customer_id
 left join Order_items on Orders.order_id = Order_items.order_id
 left join Products on Order_items.product_id = Products.product_id
 group by Customers.customer_id;
+
+select Customers.first_name, Orders.order_id
+from Customers
+left join Orders on Customers.customer_id = Orders.customer_id
+where Orders.order_id is null;
