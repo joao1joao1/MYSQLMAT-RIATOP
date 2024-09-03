@@ -93,3 +93,9 @@ select Customers.first_name, Orders.order_id
 from Customers
 left join Orders on Customers.customer_id = Orders.customer_id
 where Orders.order_id is null;
+
+select Products.product_name, sum(Order_items.quantity) as vendas
+from Products
+inner join Order_items on Products.product_id = Order_items.product_id
+group by Products.product_name
+order by vendas desc;
