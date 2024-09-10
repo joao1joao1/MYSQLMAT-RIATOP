@@ -66,3 +66,8 @@ INSERT INTO itens_pedido (pedido_id, produto_id, quantidade, preco_unitario) VAL
 select clientes.email, clientes.nome
 from clientes
 inner join pedidos on clientes.cliente_id = pedidos.cliente_id;
+
+select campanhas.nome, count(participacoes_campanha.participacao_id)
+from campanhas
+left join participacoes_campanha on campanhas.campanha_id = participacoes_campanha.campanha_id
+group by campanhas.nome;
