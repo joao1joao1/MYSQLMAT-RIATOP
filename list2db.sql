@@ -62,7 +62,7 @@ INSERT INTO itens_pedido (pedido_id, produto_id, quantidade, preco_unitario) VAL
 (1, 1, 2, 1200.00),
 (2, 3, 1, 800.00),
 (3, 2, 1, 3500.00);
-
+-- exercicio 1
 select clientes.email, clientes.nome
 from clientes
 inner join pedidos on clientes.cliente_id = pedidos.cliente_id;
@@ -126,7 +126,7 @@ INSERT INTO participacoes_campanha (cliente_id, campanha_id) VALUES
 (1, 1),
 (2, 2),
 (3, 1);
-
+-- exercicio 6
 select campanhas.nome, count(participacoes_campanha.participacao_id)
 from campanhas
 left join participacoes_campanha on campanhas.campanha_id = participacoes_campanha.campanha_id
@@ -179,7 +179,65 @@ INSERT INTO orcamentos (categoria, valor_planejado, data_inicio, data_fim) VALUE
 ('Alimentação', 2000.00, '2024-01-01', '2024-01-31'),
 ('Transporte', 800.00, '2024-01-01', '2024-01-31'),
 ('Lazer', 1000.00, '2024-01-01', '2024-01-31');
-
+-- exercicio 2
 select contas.nome, transacoes.valor, transacoes.tipo
 from contas
 left join transacoes on contas.conta_id = transacoes.conta_id;
+
+CREATE DATABASE db_prontuario_exam;
+USE db_prontuario_exam;
+
+CREATE TABLE pacientes (
+   paciente_id INT AUTO_INCREMENT PRIMARY KEY,
+   nome VARCHAR(100) NOT NULL,
+   data_nascimento DATE,
+   sexo VARCHAR(10),
+   telefone VARCHAR(15),
+   endereco TEXT,
+   data_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE prontuarios (
+   prontuario_id INT AUTO_INCREMENT PRIMARY KEY,
+   paciente_id INT NOT NULL,
+   data_consulta DATETIME DEFAULT CURRENT_TIMESTAMP,
+   medico VARCHAR(100),
+   diagnostico TEXT,
+   prescricao TEXT,
+   observacoes TEXT,
+   FOREIGN KEY (paciente_id) REFERENCES pacientes(paciente_id)
+);
+
+CREATE TABLE consultas (
+   consulta_id INT AUTO_INCREMENT PRIMARY KEY,
+   paciente_id INT NOT NULL,
+   medico VARCHAR(100),
+   data_consulta DATETIME DEFAULT CURRENT_TIMESTAMP,
+   motivo TEXT,
+   FOREIGN KEY (paciente_id) REFERENCES pacientes(paciente_id)
+);
+
+-- Inserindo pacientes
+INSERT INTO pacientes (nome, data_nascimento, sexo, telefone, endereco) VALUES
+('Ana Lima', '1985-04-23', 'Feminino', '11911111111', 'Rua G, 101'),
+('Bruno Souza', '1978-11-10', 'Masculino', '11822222222', 'Rua H, 202'),
+('Carla Mendes', '1990-08-30', 'Feminino', '11733333333', 'Rua I, 303');
+
+-- Inserindo prontuários
+INSERT INTO prontuarios (paciente_id, medico, diagnostico, prescricao, observacoes) VALUES
+(1, 'Dr. Silva', 'Gripe', 'Antitérmicos e repouso', 'Paciente deve retornar em 7 dias'),
+(2, 'Dra. Pereira', 'Hipertensão', 'Controle da pressão e mudança de dieta', 'Acompanhamento mensal necessário'),
+(3, 'Dr. Santos', 'Enxaqueca', 'Analgésicos e redução de estresse', 'Recomendado exame neurológico');
+
+-- Inserindo consultas
+INSERT INTO consultas (paciente_id, medico, motivo) VALUES
+(1, 'Dr. Silva', 'Consulta de retorno após tratamento de gripe'),
+(2, 'Dra. Pereira', 'Primeira consulta de acompanhamento da hipertensão'),
+(3, 'Dr. Santos', 'Consulta inicial para avaliação de enxaqueca crônica');
+
+
+--exercicio 5
+select prontuarios.prontuario_id, pacientes.paciente_id, consultas.data_consulta, consultas.medico, consultas.motivo
+from prontuarios 
+left join pacientes on prontuarios.paciente_id = pacientes.paciente_id
+left join consultas on pacientes.paciente_id = consultas.consulta_id;
